@@ -1,0 +1,41 @@
+
+<html> <!--start an html file. Open in browser to view it. Note you need <!--... to comment out in html-->
+ <body> <!--body of the page. Remember to always close with / at the end too.-->
+
+This draws a 5x5 grid of rectangle outlines, with random ones having a mini rectangle also inside them. Refreshing the page changes where the mini ones are. <!-- this text appears on the page too-->
+
+   <canvas id="myFirstCanvas" width="600" height="600"></canvas> <!--this is how you define the canvas to draw on in the html browser window. Inspect the webpage to check it's there. Units are pixels.-->
+
+<!--adding javascript to the html-->
+   <script> // this is how you start scripting js in a html file, note you need // to comment out now
+     let canvas = document.querySelector('canvas'); // we're setting the variable to the function 'this document' and the part that selects the element of this document (like head, body, canvas as used above - the variable name must match)
+     let context = canvas.getContext('2d'); // the context is where we actually do the drawing, we have made the context 2D here, could also be 3D.
+
+// use variables instead of repeating changes in your parameters
+// constant variables can be defined outside the loop, because they won't be changed by the loop
+    const width = 60;
+    const height = 60;
+    const gap=20;
+    // let x, y; // can define variables above loop, and then say how they'll change within loop. Variables without an initial value can be declared on the same line. More organised code. *this didn't work for me*
+
+     for (let i=0; i<5; i++){
+       for (let j = 0; j<5; j++) { // j is traditionally used as the second index
+         let x = 100 + (width + gap) * i; // gives a consistent gap
+         let y = 100 + (height + gap) * j; // using i and j gives us a 5x5 grid of rectangles
+
+         context.beginPath();
+         context.rect(x, y, width, height);
+         context.stroke();
+
+         //if ( i>0 && i < 4){ // && is logic AND; this if means we only draw the small rectangles when i is 1, 2 and 3 - we leave the lefthand and righthand columns of big rectangles empty
+         if (Math.random() > 0.5){ // instead of the logic above, use the random number generator (which returns value between 0 and 1, so where <0.5 is true 50% of the time on average)
+         context.beginPath();
+         context.rect(x + 8, y + 8, width - 16, height - 16); // to add little squares inside the bigger ones
+         context.stroke();
+         }
+       }
+     }
+   </script> <!--to close the javascript in this html element-->
+
+ </body>
+</html>

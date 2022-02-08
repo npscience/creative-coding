@@ -1,0 +1,128 @@
+
+<html> <!--start an html file. Open in browser to view it. Note you need <!--... to comment out in html-->
+ <body> <!--body of the page. Remember to always close with / at the end too.-->
+
+This draws a 5x5 grid of rectangle outlines, with random ones having a mini rectangle also inside them. Refreshing the page changes where the mini ones are. <!-- this text appears on the page too-->
+
+   <canvas id="myFirstCanvas" width="600" height="600"></canvas> <!--this is how you define the canvas to draw on in the html browser window. Inspect the webpage to check it's there. Units are pixels.-->
+
+<!--adding javascript to the html-->
+   <script> // this is how you start scripting js in a html file, note you need // to comment out now
+     let canvas = document.querySelector('canvas'); // we're setting the variable to the function 'this document' and the part that selects the element of this document (like head, body, canvas as used above - the variable name must match)
+     let context = canvas.getContext('2d'); // the context is where we actually do the drawing, we have made the context 2D here, could also be 3D.
+
+//to draw a blue filled rectangle
+     //context.fillStyle = 'blue'; // without this, the default fill colour is black
+     //context.fillRect(100,100,400,400); // fillRect takes 4 parameters: x, y, width, height. This instruction adds a coloured rectangle into our canvas in the browser showing our html file. The rectangle starts a (100,100) as (x,y) coordinate from topleft of the page. The rectangles is 400x400 px. So this sits right in the middle of our 600x600 px canvas.
+
+//to draw a rectangle where only the outline is coloured:
+     //context.lineWidth = 4; //add in later to thicken the line
+     //context.beginPath(); //start here to draw any shape
+     //context.rect(100,100,400,400); // this function draws a rectangle starting at x,y coordinates and with length and width
+     //context.stroke(); //draw the outline, as opposed to filling the shape (like above)
+
+//to draw a circle
+     //context.strokeStyle = 'white'; // I added this, looked up line colour using w3schools and found strokeStyle!
+     //context.fillStyle = 'white'; // if I don't change this here, it uses the blue from above
+     //context.beginPath();
+     //context.arc(300, 300, 100, 0, Math.PI*2); // a circle is called arc, refer to the reference documentation for canvas on w3schools to find out more - it takes 5 parameters (plus 1 optional) x,y centre-of-circle coordinates; r radius; sAngle starting angle in radians (0 is 3pm) and eAngle ending angle in radians.The optional is counterclockwise which draws counter while default is clockwise otherwise. Note pi is stored as a constant Math.PI and a full circle in radians is 2 pi.
+     //context.stroke(); // to draw the outline, could also/instead do fill :)
+     //context.fill(); // to fill
+
+// learning variables
+     let x=5; //use let to define a variable (another way is const, see later in this doc). Use ; to end a line. Can refer to x now and machine will pick up last defined value for x.
+     let year = 2022;
+     let nextYear = year +1;
+     let dinner='pasta'; // use '..' for text or string
+     let sentence = 'Tonight, dinner will be ' + dinner;
+
+//learning functions and about the console log
+     function saySomething(param) { //here param is for parameter. this function 'saySomething' returns the parameter in the bracket into the console in the browser
+       console.log(param); //this prints out into the console inspector in the html browser
+     }
+
+     saySomething(sentence);
+
+     function add(a, b) { // for variables a and b, this function adds them and returns the result
+       return a + b; // we need to write return to not just sum a and b but also return the result
+     }
+
+     let result = add(5, 7);
+     console.log(result); //if we just write a+b; in the function without return then this instruction to the console will just write undefined, because we've not told the machine to return the result
+
+     let multiply = (a,b) => { //this is another way of writing a function using the arrow ( => )
+       return a * b;
+     }
+
+     console.log(multiply(5,7)); // we don't need to name a variable for the result, we can directly put in the function+paramters within our console log function.
+
+//learning arrays
+     let years = []; //arrays are lists, use square brackets, can be values or strings (below), can be empty as here
+     let menu = ['starter', 'main', 'dessert', 'drinks', 'sides'];
+
+     //learning loops
+     //loops are chunks of code that run multiple times
+     for (let i = 0; i < menu.length; i++) { // 'for' is a classic loop. Inside {} you write the code that you want to report; inside () you write the expresson to control the loop, 3 parts: define the index variable (i.e. starting point, 0), the condition for the loop to run (i.e. while i is less than 4, i<4, when i gets to 4 we leave the loop and carry on with the rest of the code - here we can set the less than value as the length of the array we're looking at), and 3rdly how i changes on every iteration of the loop (i++ is shorter way of saying i+=1 which means to increment by 1 every time)
+      console.log(menu[i]); // to access the menu array and list the first items
+
+     }
+
+     for (let i = 0; i < 10; i++) {
+       years.push(2040 + i); // push is a function that adds values to an array
+     }
+
+     console.log(years); // now shows an array of 10 values from 2040 to 2049
+
+     //for (let i=0; i<5; i++) {
+       //context.beginPath();
+       //context.rect(100 + 70*i,100 + 70*i,60,60); // if x + 70i each time, then it moves right by 70, leaving a 10px gap cos rect is 60px wide. Doing same with y makes a diagonal stripe of rectangles.
+       //context.stroke();
+     //}
+
+//learning conditionals
+// if (conditional) {
+//// do something
+//}
+//else {
+//// do something else - can skip the else bit if the action is to do nothing.
+//}
+
+
+// another way to define variable, other than let, is to use const. For variables that are constant i.e. they do not change.
+    // const gravity = 9.01; // gravity doesn't change, it is a constant. Rule of thumb is to always use const unless we known our variable will change.
+    // let velocity = 0.0; // velocity likely to change
+
+// use variables instead of repeating changes in your parameters
+// constant variables can be defined outside the loop, because they won't be changed by the loop
+    const width = 60;
+    const height = 60;
+    const gap=20;
+    // let x, y; // can define variables above loop, and then say how they'll change within loop. Variables without an initial value can be declared on the same line. More organised code. *this didn't work for me*
+
+     for (let i=0; i<5; i++){
+       for (let j = 0; j<5; j++) { // j is traditionally used as the second index
+         let x = 100 + (width + gap) * i; // gives a consistent gap
+         let y = 100 + (height + gap) * j; // using i and j gives us a 5x5 grid of rectangles
+
+         context.beginPath();
+         context.rect(x, y, width, height);
+         context.stroke();
+
+         //if ( i>0 && i < 4){ // && is logic AND; this if means we only draw the small rectangles when i is 1, 2 and 3 - we leave the lefthand and righthand columns of big rectangles empty
+         if (Math.random() > 0.5){ // instead of the logic above, use the random number generator (which returns value between 0 and 1, so where <0.5 is true 50% of the time on average)
+         context.beginPath();
+         context.rect(x + 8, y + 8, width - 16, height - 16); // to add little squares inside the bigger ones
+         context.stroke();
+         }
+       }
+     }
+
+//another way to print list of items in an array to the console:
+     menu.forEach(item => { // forEach function goes through each array item, in () is the parameter or expression for how to look, here is another expression within the {}
+       console.log(item);
+     })
+
+   </script> <!--to close the javascript in this html element-->
+
+ </body>
+</html>
